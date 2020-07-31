@@ -1,6 +1,8 @@
 # Singleton
 
 기억해야 할 것
+< Service > 핵심키워드: 진짜 커넥션 생성, new로 DAO 생성X
+< DAO > 핵심키워드: DAO 클래스 안에 DAO 변수와 new DAO / static으로 선언된 DAO 타입의 변수 / private생성자 / pstmt 사용을 위한 Connection 받기 / static DAO가 존재하면 return DAO 아니면 new DAO
 
 < Service >
 1. getConnection()으로 진짜 커넥션을 생성
