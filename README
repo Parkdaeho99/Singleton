@@ -1,0 +1,25 @@
+# Singleton
+
+기억해야 할 것
+
+< Service >
+1. getConnection()으로 진짜 커넥션을 생성
+2. 그 커넥션을 DAO에 넘김
+3. getInstance()로 DAO 객체를 생성 (new로 생성하는 게 아니다 - 싱글톤 패턴)
+
+< DAO >
+1. Service에서 getInstance()로 객체를 생성했기 때문에 getInstnace() 메소드를 만들어 준다.
+1-1. getInstance()의 역할은 이미 객체가 있다면 그 객체를 반환해주고, 아니라면 new로 새로운 객체를 생성한다.
+if (instance == null) 이면 new DAO하고 아니면 return DAO를 한다.
+이 조건문에서 알 수 있는 건 클래스 내부에서 자신의 클래스를 생성할 수 있다.
+이 조건문 때문에 instance를 static으로 해준 듯하다. 만약 static이 없다면 아직 객체를 생성하지 않았기 때문에 instance라는 DAO 타입의 변수는 보이지 않는다.
+그렇기에 static을 사용하여 미리 힙 영역에 올려놓고 new를 하지 않아도 찾을 수 있게 해줌으로서 객체가 있는지 없는지 검사정도는 할 수 있게 해줌
+1-2. 외부에서 new로 생성하지 못하게 해야하기 때문에 DAO 생성자를 private로 선언 = 이러면 DAO의 내부 메소드를 통해서만 생성 가능하게 된다.
+
+2. Service에서 커넥션을 DAO로 넘겼기 때문에 DAO에 커넥션을 받을 수 있는 Connection 변수를 만든다.
+Connection conn;
+setConnection(Connection conn) {
+  this.conn = conn;
+} // 이런식으로
+
+여기까지 하면 DAO객체가 생성된 상태고, DAO 내부에 커넥션까지 세팅되어 pstmt를 자유롭게 쓸 수 있게 되어 DB에 접근이 가능하다.
